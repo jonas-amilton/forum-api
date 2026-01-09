@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { QuestionsService } from './questions.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
@@ -10,8 +20,11 @@ export class QuestionsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  create(@Body() createQuestionDto: CreateQuestionDto) {
-    return this.questionsService.create(createQuestionDto);
+  create(
+    @Body() createQuestionDto: CreateQuestionDto,
+    @Request() req: any,
+  ) {
+    return this.questionsService.create(createQuestionDto, req.sub);
   }
 
   @Get()
@@ -28,7 +41,10 @@ export class QuestionsController {
 
   @Patch(':id')
   @UseGuards(AuthGuard)
-  update(@Param('id') id: string, @Body() updateQuestionDto: UpdateQuestionDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateQuestionDto: UpdateQuestionDto,
+  ) {
     return this.questionsService.update(+id, updateQuestionDto);
   }
 
