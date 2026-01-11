@@ -12,6 +12,7 @@ import {
 import { Prisma, User as UserModel } from '@prisma/client';
 import { UserService } from './user.service';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { PublicUserDto } from './dto/public-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -26,7 +27,7 @@ export class UserController {
 
   @UseGuards(AuthGuard)
   @Get(':id')
-  async getUser(@Param('id') id: string): Promise<UserModel | null> {
+  async getUser(@Param('id') id: string): Promise<PublicUserDto | null> {
     return this.userService.user({ id: Number(id) });
   }
 
