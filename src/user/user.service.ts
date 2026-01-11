@@ -1,17 +1,24 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { User, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/database/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { PublicUserDto } from './dto/public-user.dto';
+import { AuthUserDto } from './dto/auth-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
   async user(
-    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
-  ): Promise<User | null> {
+    where: Prisma.UserWhereUniqueInput,
+  ): Promise<PublicUserDto | null> {
     return this.prisma.user.findUnique({
-      where: userWhereUniqueInput,
+      where,
+      select: {
+        id: true,
+        email: true,
+        name: true,
+      },
     });
   }
 
@@ -40,6 +47,19 @@ export class UserService {
   async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
     return this.prisma.user.delete({
       where,
+    });
+  }
+
+  async findForAuth(
+    where: Prisma.UserWhereUniqueInput,
+  ): Promise<AuthUserDto | null> {
+    return this.prisma.user.findUnique({
+      where,
+      select: {
+        id: true,
+        email: true,
+        password: true,
+      },
     });
   }
 }
