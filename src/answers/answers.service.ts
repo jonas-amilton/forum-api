@@ -25,7 +25,7 @@ export class AnswersService {
   }
 
   findAll() {
-    return this.prisma.questions.findMany();
+    return this.prisma.answers.findMany();
   }
 
   findOne(id: number) {
