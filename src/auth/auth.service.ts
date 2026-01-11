@@ -19,7 +19,7 @@ export class AuthService {
   async signIn(
     params: Prisma.UserCreateInput,
   ): Promise<{ access_token: string }> {
-    const user = await this.userService.user({ email: params.email });
+    const user = await this.userService.findForAuth({ email: params.email });
 
     if (!user) {
       throw new NotFoundException('User not found');
