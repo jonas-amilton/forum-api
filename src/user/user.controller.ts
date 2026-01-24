@@ -24,7 +24,7 @@ export class UserController {
   @Post('signup')
   async signupUser(
     @Body(new ValidationPipe()) userData: CreateUserDto,
-  ): Promise<UserModel> {
+  ): Promise<PublicUserDto> {
     return this.userService.createUser(userData);
   }
 

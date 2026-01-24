@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { User, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/database/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { PublicUserDto } from './dto/public-user.dto';
 import { AuthUserDto } from './dto/auth-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UserService {
@@ -22,13 +23,18 @@ export class UserService {
     });
   }
 
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
+  async createUser(data: CreateUserDto): Promise<PublicUserDto> {
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
     return this.prisma.user.create({
       data: {
         ...data,
         password: hashedPassword,
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
       },
     });
   }
