@@ -1,0 +1,198 @@
+{
+  "info": {
+    "_postman_id": "forum-api-collection",
+    "name": "Forum API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Signin",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@email.com\",\n  \"password\": \"123456\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "http://localhost:3000/auth/signin", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["auth", "signin"] }
+      }
+    },
+    {
+      "name": "User - Signup",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"user@email.com\",\n  \"password\": \"123456\",\n  \"name\": \"User Name\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "http://localhost:3000/user/signup", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["user", "signup"] }
+      }
+    },
+    {
+      "name": "User - Get",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" }
+        ],
+        "url": { "raw": "http://localhost:3000/user/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["user", "1"] }
+      }
+    },
+    {
+      "name": "User - Update",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Novo Nome\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "http://localhost:3000/user/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["user", "1"] }
+      }
+    },
+    {
+      "name": "User - Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" }
+        ],
+        "url": { "raw": "http://localhost:3000/user/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["user", "1"] }
+      }
+    },
+    {
+      "name": "Questions - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Pergunta\",\n  \"content\": \"Conteúdo da pergunta\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "http://localhost:3000/questions", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["questions"] }
+      }
+    },
+    {
+      "name": "Questions - List",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" }
+        ],
+        "url": { "raw": "http://localhost:3000/questions", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["questions"] }
+      }
+    },
+    {
+      "name": "Questions - Get",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" }
+        ],
+        "url": { "raw": "http://localhost:3000/questions/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["questions", "1"] }
+      }
+    },
+    {
+      "name": "Questions - Update",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Nova Pergunta\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "http://localhost:3000/questions/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["questions", "1"] }
+      }
+    },
+    {
+      "name": "Questions - Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" }
+        ],
+        "url": { "raw": "http://localhost:3000/questions/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["questions", "1"] }
+      }
+    },
+    {
+      "name": "Answers - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"content\": \"Resposta\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "http://localhost:3000/answers/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["answers", "1"] }
+      }
+    },
+    {
+      "name": "Answers - List",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" }
+        ],
+        "url": { "raw": "http://localhost:3000/answers", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["answers"] }
+      }
+    },
+    {
+      "name": "Answers - Get",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" }
+        ],
+        "url": { "raw": "http://localhost:3000/answers/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["answers", "1"] }
+      }
+    },
+    {
+      "name": "Answers - Update",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"content\": \"Nova resposta\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": { "raw": "http://localhost:3000/answers/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["answers", "1"] }
+      }
+    },
+    {
+      "name": "Answers - Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt}}", "type": "text" }
+        ],
+        "url": { "raw": "http://localhost:3000/answers/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["answers", "1"] }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "jwt", "value": "" }
+  ]
+}
