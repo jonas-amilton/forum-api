@@ -18,7 +18,6 @@ export class PrismaService
     }
 
     // PrismaPg type is not resolved under our ESLint/TS setup; suppress unsafe lint here.
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
     const adapter: Prisma.PrismaClientOptions['adapter'] = new PrismaPg({
       connectionString: databaseUrl,
     });
