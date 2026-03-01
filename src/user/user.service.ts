@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { PublicUserDto } from './dto/public-user.dto';
 import { AuthUserDto } from './dto/auth-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -41,12 +42,17 @@ export class UserService {
 
   async updateUser(params: {
     where: Prisma.UserWhereUniqueInput;
-    data: Prisma.UserUpdateInput;
-  }): Promise<User> {
+    data: UpdateUserDto;
+  }): Promise<PublicUserDto> {
     const { where, data } = params;
     return this.prisma.user.update({
       data,
       where,
+      select: {
+        id: true,
+        email: true,
+        name: true,
+      },
     });
   }
 
