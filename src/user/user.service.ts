@@ -1,5 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { User, Prisma } from '@prisma/client';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/database/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { PublicUserDto } from './dto/public-user.dto';
@@ -56,10 +60,27 @@ export class UserService {
     });
   }
 
-  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
+  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<PublicUserDto> {
     return this.prisma.user.delete({
       where,
+      select: {
+        id: true,
+        email: true,
+        name: true,
+      },
     });
+  }
+
+  async validatePasswordForId(id: number, password: string): Promise<void> {
+    const user = await this.findForAuth({ id });
+    if (!user) {
+      throw new NotFoundException('Usuário não encontrado');
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      throw new UnauthorizedException('Credenciais invalidas');
+    }
   }
 
   async findForAuth(
