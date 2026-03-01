@@ -14,6 +14,7 @@ import { QuestionsService } from './questions.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { CurrentUser } from 'src/auth/current-user.decorator';
 
 @Controller('questions')
 export class QuestionsController {
@@ -21,8 +22,11 @@ export class QuestionsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  create(@Body() createQuestionDto: CreateQuestionDto, @Request() req: any) {
-    return this.questionsService.create(createQuestionDto, req.user.sub);
+  create(
+    @Body() createQuestionDto: CreateQuestionDto,
+    @CurrentUser('sub') userSub: number,
+  ) {
+    return this.questionsService.create(createQuestionDto, userSub);
   }
 
   @Get()
