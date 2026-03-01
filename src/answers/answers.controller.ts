@@ -14,6 +14,7 @@ import { AnswersService } from './answers.service';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { UpdateAnswerDto } from './dto/update-answer.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { CurrentUser } from 'src/auth/current-user.decorator';
 
 @Controller('answers')
 export class AnswersController {
@@ -23,14 +24,10 @@ export class AnswersController {
   @UseGuards(AuthGuard)
   create(
     @Body() createAnswerDto: CreateAnswerDto,
-    @Request() req: any,
+    @CurrentUser('sub') userSub: number,
     @Param('questionId', ParseIntPipe) questionId: number,
   ) {
-    return this.answersService.create(
-      createAnswerDto,
-      req.user.sub,
-      questionId,
-    );
+    return this.answersService.create(createAnswerDto, userSub, questionId);
   }
 
   @Get()
